@@ -1,0 +1,34 @@
+C51 COMPILER V9.60.7.0   DELAY                                                             10/03/2024 19:23:41 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\delay.obj
+COMPILER INVOKED BY: E:\Program Files\Keil_v5\C51\BIN\C51.EXE delay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\delay.lst) TABS(2) OBJECT(.\Objects\delay.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF delay.c: SERIAL NUMBER EXPIRED
+   1          #include "delay.h"
+   2          
+   3          void delay_ms(u16 ms){
+   4   1        u16 i;
+   5   1        do{
+   6   2          i = MAIN_Fosc / 13000;
+   7   2          while(--i)  ;   //14T per loop
+   8   2        }while(--ms);
+   9   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     23    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

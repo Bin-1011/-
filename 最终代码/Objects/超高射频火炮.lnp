@@ -1,0 +1,10 @@
+".\Objects\LED.obj",
+".\Objects\main.obj",
+".\Objects\delay.obj",
+".\Objects\LCD.obj",
+".\Objects\oled.obj",
+".\Objects\oled_show.obj",
+".\Objects\lcd_show.obj",
+".\Objects\sensor.obj" 
+TO ".\Objects\³¬¸ßÉäÆµ»ğÅÚ" 
+PRINT(".\Listings\³¬¸ßÉäÆµ»ğÅÚ.m51") RAMSIZE(256) 

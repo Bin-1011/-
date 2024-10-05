@@ -1,0 +1,73 @@
+C51 COMPILER V9.60.7.0   LED                                                               10/03/2024 19:23:41 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN .\Objects\LED.obj
+COMPILER INVOKED BY: E:\Program Files\Keil_v5\C51\BIN\C51.EXE LED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\LED.lst) TABS(2) OBJECT(.\Objects\LED.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF LED.c: SERIAL NUMBER EXPIRED
+   1          #include "global.h"
+   2          
+   3          /******************** µ¥·¢µã»ð **************************/
+   4          void led_single(int *led_count,u16 freq){
+   5   1        unsigned char led_state = 0X01;
+   6   1        led_state <<= (*led_count);
+   7   1        LED = ~led_state;
+   8   1        if(((*led_count)++) == 7){
+   9   2          (*led_count) = 0;
+  10   2        }
+  11   1        delay_ms(freq);
+  12   1        LED = 0XFF;
+  13   1      }
+  14          
+  15          void led_func(int selected,int *led_count,int *count,u16 freq){
+  16   1        int i;
+  17   1        OLED_Clear();
+  18   1        switch(selected){
+  19   2          case 0:       
+  20   2            OLED_Show(*count);  
+  21   2            if(*count>0){
+  22   3              led_single(led_count,freq);
+  23   3              (*count)--;
+  24   3            }
+  25   2            break;
+  26   2          case 1:       
+  27   2            for(i = 0;i < 2;i++){
+  28   3              OLED_Show(*count);
+  29   3              if(*count>0){
+  30   4                led_single(led_count,freq);
+  31   4                (*count)--;
+  32   4              }
+  33   3            }
+  34   2            break;
+  35   2          case 2:       
+  36   2            while(*count>0 && cancel == 1){
+  37   3              OLED_Show(*count);
+  38   3              led_single(led_count,freq);
+  39   3              (*count)--;
+  40   3            }
+  41   2            delay_ms(100);
+  42   2            break;
+  43   2          case 3:
+  44   2            break;
+  45   2        }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    285    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   LED                                                               10/03/2024 19:23:41 PAGE 2   
+
+   DATA SIZE        =   ----      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,125 @@
+C51 COMPILER V9.60.7.0   LCD_SHOW                                                          10/03/2024 19:23:41 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LCD_SHOW
+OBJECT MODULE PLACED IN .\Objects\lcd_show.obj
+COMPILER INVOKED BY: E:\Program Files\Keil_v5\C51\BIN\C51.EXE lcd_show.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\lcd_show.lst) TABS(2) OBJECT(.\Objects\lcd_show.obj)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF lcd_show.c: SERIAL NUMBER EXPIRED
+   1          #include "global.h"
+   2          
+   3          u8 code _sin[] = {"单发点火"};
+   4          u8 code _dou[] = {"双发点火"};
+   5          u8 code _flu[] = {"连发点火"};
+   6          u8 code _set[] = {"其他设置"};
+   7          u8 code _sch[] = {"红外传感开关"};
+   8          u8 code _frq[] = {"发射频率调节"};
+   9          //u8 code _sen[] = {"传感器触发射击"};
+  10          u8 code select_l[] = {0XA1,0XFA};
+  11          //u8 code select_r[] = {0XA1,0XFB};
+  12          
+  13          void lcd_func(int selected,int *_switch,u16 *freq){
+  14   1        switch(selected){
+  15   2          case 0:
+  16   2            lcd_single();
+  17   2            break;
+  18   2          case 1:
+  19   2            lcd_double();
+  20   2            break;
+  21   2          case 2:       
+  22   2            lcd_flu();
+  23   2            break;
+  24   2          case 3:
+  25   2            lcd_setting(_switch,freq);
+  26   2            LCDClear();
+  27   2            break;
+  28   2        }
+  29   1      
+  30   1      }
+  31          
+  32          
+  33          void lcd_mainUI(int selected){
+  34   1        DisplayListChar(1,selected+1,select_l);
+  35   1        DisplayListChar(2,1,_sin);  //单发点火
+  36   1        DisplayListChar(2,2,_dou);  //双发点火
+  37   1        DisplayListChar(2,3,_flu);  //连发点火
+  38   1        DisplayListChar(2,4,_set);  //
+  39   1        delay_ms(50);
+  40   1      }
+  41          
+  42          void lcd_single(void){
+  43   1        DisplayListChar(2,1,_sin);  
+  44   1        delay_ms(50);
+  45   1      }
+  46          
+  47          void lcd_double(void){
+  48   1        DisplayListChar(2,1,_dou);
+  49   1        delay_ms(50);
+  50   1      }
+  51          void lcd_flu(void){
+  52   1        DisplayListChar(2,1,_flu);
+  53   1        delay_ms(50);
+C51 COMPILER V9.60.7.0   LCD_SHOW                                                          10/03/2024 19:23:41 PAGE 2   
+
+  54   1      }
+  55          
+  56          
+  57          void lcd_settingUI(int selected){
+  58   1        DisplayListChar(1,selected+3,select_l);
+  59   1        DisplayListChar(2,1,_set);
+  60   1        DisplayListChar(2,3,_sch);
+  61   1        DisplayListChar(2,4,_frq);
+  62   1        delay_ms(50);
+  63   1      }
+  64          
+  65          void lcd_setting(int *_switch,u16 *freq){
+  66   1        int sel = 0;
+  67   1        while(cancel == 1){
+  68   2          OLED_Main(*_switch,*freq);
+  69   2          if(up == 0 && sel!= 0){
+  70   3            sel--;
+  71   3            LCDClear();
+  72   3          }
+  73   2          else if(down == 0 && sel != 1){
+  74   3            sel++;  
+  75   3            LCDClear();
+  76   3          }
+  77   2          lcd_settingUI(sel);
+  78   2          if(confirm == 0){
+  79   3            delay_ms(50);
+  80   3            LCDClear();
+  81   3            switch(sel){
+  82   4              case 0:
+  83   4                DisplayListChar(1,1,_sch);
+  84   4                OLED_Sensor(_switch);
+  85   4                OLED_Clear();
+  86   4                LCDClear();
+  87   4                break;
+  88   4              case 1:
+  89   4                DisplayListChar(1,1,_frq);
+  90   4                OLED_Freq(freq);
+  91   4                OLED_Clear();
+  92   4                LCDClear();
+  93   4                break;
+  94   4            }
+  95   3          }
+  96   2        }
+  97   1      }
+  98          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    393    ----
+   CONSTANT SIZE    =     64    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      16
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
